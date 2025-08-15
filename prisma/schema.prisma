@@ -30,9 +30,11 @@ model Record {
   text      String
   amount    Float
   category  String @default("Other")
+  type      String @default("expense") // "expense" or "income"
   date      DateTime @default(now())
   userId    String
   user      User    @relation(fields: [userId], references: [clerkUserId], onDelete: Cascade)
   createdAt DateTime @default(now())
   @@index([userId])
+  @@index([userId, type])
 }

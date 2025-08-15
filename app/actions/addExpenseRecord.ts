@@ -7,6 +7,7 @@ interface RecordData {
   text: string;
   amount: number;
   category: string;
+  type: string;
   date: string; // Added date field
 }
 
@@ -19,6 +20,7 @@ async function addExpenseRecord(formData: FormData): Promise<RecordResult> {
   const textValue = formData.get('text');
   const amountValue = formData.get('amount');
   const categoryValue = formData.get('category');
+  const typeValue = formData.get('type');
   const dateValue = formData.get('date'); // Extract date from formData
 
   // Check for input values
@@ -28,15 +30,18 @@ async function addExpenseRecord(formData: FormData): Promise<RecordResult> {
     !amountValue ||
     !categoryValue ||
     categoryValue === '' ||
+    !typeValue ||
+    typeValue === '' ||
     !dateValue ||
     dateValue === ''
   ) {
-    return { error: 'Text, amount, category, or date is missing' };
+    return { error: 'Text, amount, category, type, or date is missing' };
   }
 
   const text: string = textValue.toString(); // Ensure text is a string
   const amount: number = parseFloat(amountValue.toString()); // Parse amount as number
   const category: string = categoryValue.toString(); // Ensure category is a string
+  const type: string = typeValue.toString(); // Ensure type is a string
   // Convert date to ISO-8601 format while preserving the user's input date
   let date: string;
   try {
@@ -67,6 +72,7 @@ async function addExpenseRecord(formData: FormData): Promise<RecordResult> {
         text,
         amount,
         category,
+        type,
         date, // Save the date to the database
         userId,
       },
@@ -76,6 +82,7 @@ async function addExpenseRecord(formData: FormData): Promise<RecordResult> {
       text: createdRecord.text,
       amount: createdRecord.amount,
       category: createdRecord.category,
+      type: createdRecord.type,
       date: createdRecord.date?.toISOString() || date,
     };
 
@@ -85,7 +92,7 @@ async function addExpenseRecord(formData: FormData): Promise<RecordResult> {
   } catch (error) {
     console.error('Error adding expense record:', error); // Log the error
     return {
-      error: 'An unexpected error occurred while adding the expense record.',
+      error: 'An unexpected error occurred while adding the record.',
     };
   }
 }

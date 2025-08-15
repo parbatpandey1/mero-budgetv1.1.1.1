@@ -57,6 +57,7 @@ export async function getAIInsights(): Promise<AIInsight[]> {
       id: expense.id,
       amount: expense.amount,
       category: expense.category || 'Other',
+      type: expense.type || 'expense',
       description: expense.text,
       date: expense.createdAt.toISOString(),
     }));

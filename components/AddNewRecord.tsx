@@ -12,6 +12,7 @@ const AddRecord = () => {
   const [category, setCategory] = useState(''); // State for selected expense category
   const [description, setDescription] = useState(''); // State for expense description
   const [isCategorizingAI, setIsCategorizingAI] = useState(false); // State for AI categorization loading
+  const [recordType, setRecordType] = useState<'expense' | 'income'>('expense'); // State for record type
 
   const clientAction = async (formData: FormData) => {
     setIsLoading(true); // Show spinner
@@ -19,14 +20,15 @@ const AddRecord = () => {
 
     formData.set('amount', amount.toString()); // Add the amount value to the form data
     formData.set('category', category); // Add the selected category to the form data
+    formData.set('type', recordType); // Add the record type to the form data
 
-    const { error } = await addExpenseRecord(formData); // Removed `data` since it's unused
+    const { error } = await addExpenseRecord(formData);
 
     if (error) {
       setAlertMessage(`Error: ${error}`);
       setAlertType('error'); // Set alert type to error
     } else {
-      setAlertMessage('Expense record added successfully!');
+      setAlertMessage(`${recordType === 'expense' ? 'Expense' : 'Income'} record added successfully!`);
       setAlertType('success'); // Set alert type to success
       formRef.current?.reset();
       setAmount(50); // Reset the amount to the default value
@@ -69,14 +71,14 @@ const AddRecord = () => {
     <div className='bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-4 sm:p-6 rounded-2xl shadow-xl border border-gray-100/50 dark:border-gray-700/50 hover:shadow-2xl'>
       <div className='flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6'>
         <div className='w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-emerald-500 via-green-500 to-teal-500 rounded-xl flex items-center justify-center shadow-lg'>
-          <span className='text-white text-sm sm:text-lg'>💳</span>
+          <span className='text-white text-sm sm:text-lg'>{recordType === 'expense' ? '💳' : '💰'}</span>
         </div>
         <div>
           <h3 className='text-lg sm:text-xl font-bold text-gray-900 dark:text-gray-100 leading-tight'>
-            Add New Expense
+            Add New {recordType === 'expense' ? 'Expense' : 'Income'}
           </h3>
           <p className='text-xs text-gray-500 dark:text-gray-400 mt-0.5'>
-            Track your spending
+            Track your {recordType === 'expense' ? 'spending' : 'earnings'}
           </p>
         </div>
       </div>
@@ -90,6 +92,50 @@ const AddRecord = () => {
         className='space-y-6 sm:space-y-8'
       >
         {/* Expense Description and Date */}
+        {/* Record Type Selection */}
+        <div className='p-3 sm:p-4 bg-gradient-to-r from-emerald-50/50 to-green-50/50 dark:from-emerald-900/10 dark:to-green-900/10 rounded-xl border border-emerald-100/50 dark:border-emerald-800/50'>
+          <label className='flex items-center gap-2 text-xs font-semibold text-gray-700 dark:text-gray-300 tracking-wide mb-3'>
+            <span className='w-1.5 h-1.5 bg-emerald-500 rounded-full'></span>
+            Record Type
+          </label>
+          <div className='grid grid-cols-2 gap-2'>
+            <button
+              type='button'
+              onClick={() => {
+                setRecordType('expense');
+                setCategory('');
+              }}
+              className={`p-3 rounded-xl border-2 transition-all duration-200 ${
+                recordType === 'expense'
+                  ? 'border-red-400 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300'
+                  : 'border-gray-200 dark:border-gray-600 bg-white/50 dark:bg-gray-700/50 text-gray-600 dark:text-gray-400 hover:border-red-300'
+              }`}
+            >
+              <div className='flex items-center gap-2 justify-center'>
+                <span className='text-lg'>💳</span>
+                <span className='font-medium text-sm'>Expense</span>
+              </div>
+            </button>
+            <button
+              type='button'
+              onClick={() => {
+                setRecordType('income');
+                setCategory('');
+              }}
+              className={`p-3 rounded-xl border-2 transition-all duration-200 ${
+                recordType === 'income'
+                  ? 'border-green-400 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300'
+                  : 'border-gray-200 dark:border-gray-600 bg-white/50 dark:bg-gray-700/50 text-gray-600 dark:text-gray-400 hover:border-green-300'
+              }`}
+            >
+              <div className='flex items-center gap-2 justify-center'>
+                <span className='text-lg'>💰</span>
+                <span className='font-medium text-sm'>Income</span>
+              </div>
+            </button>
+          </div>
+        </div>
+
         <div className='grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 p-3 sm:p-4 bg-gradient-to-r from-emerald-50/50 to-green-50/50 dark:from-emerald-900/10 dark:to-green-900/10 rounded-xl border border-emerald-100/50 dark:border-emerald-800/50'>
           {/* Expense Description */}
           <div className='space-y-1.5'>
@@ -98,7 +144,7 @@ const AddRecord = () => {
               className='flex items-center gap-2 text-xs font-semibold text-gray-700 dark:text-gray-300 tracking-wide'
             >
               <span className='w-1.5 h-1.5 bg-emerald-500 rounded-full'></span>
-              Name of the Expense
+              {recordType === 'expense' ? 'Name of the Expense' : 'Name of the Income'}
             </label>
             <div className='relative'>
               <input
@@ -108,7 +154,7 @@ const AddRecord = () => {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 className='w-full pl-3 pr-12 sm:pr-14 py-2.5 bg-white/70 dark:bg-gray-800/70 border-2 border-gray-200/80 dark:border-gray-600/80 rounded-xl focus:ring-2 focus:ring-emerald-500/30 focus:bg-white dark:focus:bg-gray-700/90 focus:border-emerald-400 dark:focus:border-emerald-400 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 text-sm shadow-sm hover:shadow-md transition-all duration-200'
-                placeholder='Coffee, groceries, gas...'
+                placeholder={recordType === 'expense' ? 'Coffee, groceries, gas...' : 'Salary, freelance, bonus...'}
                 required
               />
               <button
@@ -140,7 +186,7 @@ const AddRecord = () => {
               className='flex items-center gap-2 text-xs font-semibold text-gray-700 dark:text-gray-300 tracking-wide'
             >
               <span className='w-1.5 h-1.5 bg-green-500 rounded-full'></span>
-              Expense Date
+              {recordType === 'expense' ? 'Expense Date' : 'Income Date'}
             </label>
             <input
               type='date'
@@ -182,45 +228,52 @@ const AddRecord = () => {
               >
                 Select category...
               </option>
-              <option value='Food' className='text-gray-900 dark:text-gray-100'>
-                🍔 Food & Dining
-              </option>
-              <option
-                value='Transportation'
-                className='text-gray-900 dark:text-gray-100'
-              >
-                🚗 Transportation
-              </option>
-              <option
-                value='Shopping'
-                className='text-gray-900 dark:text-gray-100'
-              >
-                🛒 Shopping
-              </option>
-              <option
-                value='Entertainment'
-                className='text-gray-900 dark:text-gray-100'
-              >
-                🎬 Entertainment
-              </option>
-              <option
-                value='Bills'
-                className='text-gray-900 dark:text-gray-100'
-              >
-                💡 Bills & Utilities
-              </option>
-              <option
-                value='Healthcare'
-                className='text-gray-900 dark:text-gray-100'
-              >
-                🏥 Healthcare
-              </option>
-              <option
-                value='Other'
-                className='text-gray-900 dark:text-gray-100'
-              >
-                📦 Other
-              </option>
+              {recordType === 'expense' ? (
+                <>
+                  <option value='Food' className='text-gray-900 dark:text-gray-100'>
+                    🍔 Food & Dining
+                  </option>
+                  <option value='Transportation' className='text-gray-900 dark:text-gray-100'>
+                    🚗 Transportation
+                  </option>
+                  <option value='Shopping' className='text-gray-900 dark:text-gray-100'>
+                    🛒 Shopping
+                  </option>
+                  <option value='Entertainment' className='text-gray-900 dark:text-gray-100'>
+                    🎬 Entertainment
+                  </option>
+                  <option value='Bills' className='text-gray-900 dark:text-gray-100'>
+                    💡 Bills & Utilities
+                  </option>
+                  <option value='Healthcare' className='text-gray-900 dark:text-gray-100'>
+                    🏥 Healthcare
+                  </option>
+                  <option value='Other' className='text-gray-900 dark:text-gray-100'>
+                    📦 Other
+                  </option>
+                </>
+              ) : (
+                <>
+                  <option value='Salary' className='text-gray-900 dark:text-gray-100'>
+                    💼 Salary
+                  </option>
+                  <option value='Freelance' className='text-gray-900 dark:text-gray-100'>
+                    💻 Freelance
+                  </option>
+                  <option value='Business' className='text-gray-900 dark:text-gray-100'>
+                    🏢 Business
+                  </option>
+                  <option value='Investment' className='text-gray-900 dark:text-gray-100'>
+                    📈 Investment
+                  </option>
+                  <option value='Gift' className='text-gray-900 dark:text-gray-100'>
+                    🎁 Gift
+                  </option>
+                  <option value='Other' className='text-gray-900 dark:text-gray-100'>
+                    📦 Other
+                  </option>
+                </>
+              )}
             </select>
           </div>
 
@@ -233,7 +286,7 @@ const AddRecord = () => {
               <span className='w-1.5 h-1.5 bg-green-500 rounded-full'></span>
               Amount
               <span className='text-xs text-gray-400 dark:text-gray-500 ml-2 font-normal hidden sm:inline'>
-                Enter amount between in Rs.(nepali rupees) 
+                Enter amount in Rs. (Nepali Rupees)
               </span>
             </label>
             <div className='relative'>
@@ -272,7 +325,7 @@ const AddRecord = () => {
             ) : (
               <>
                 <span className='text-lg'>💫</span>
-                <span>Add Expense</span>
+                <span>Add {recordType === 'expense' ? 'Expense' : 'Income'}</span>
               </>
             )}
           </div>

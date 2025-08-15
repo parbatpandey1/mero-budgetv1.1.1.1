@@ -4,7 +4,25 @@ import { Record } from '@/types/Record';
 import deleteRecord from '@/app/actions/deleteRecord';
 
 // Helper function to get category emoji
-const getCategoryEmoji = (category: string) => {
+const getCategoryEmoji = (category: string, type: string) => {
+  if (type === 'income') {
+    switch (category) {
+      case 'Salary':
+        return '💼';
+      case 'Freelance':
+        return '💻';
+      case 'Business':
+        return '🏢';
+      case 'Investment':
+        return '📈';
+      case 'Gift':
+        return '🎁';
+      default:
+        return '💰';
+    }
+  }
+  
+  // Expense categories
   switch (category) {
     case 'Food':
       return '🍔';
@@ -33,16 +51,21 @@ const RecordItem = ({ record }: { record: Record }) => {
   };
 
   // Determine border color based on expense amount
-  const getBorderColor = (amount: number) => {
+  const getBorderColor = (amount: number, type: string) => {
+    if (type === 'income') {
+      return 'border-green-500'; // Income is always green
+    }
+    // Expense colors
     if (amount > 10000) return 'border-red-500'; // High expense
     if (amount > 500) return 'border-yellow-500'; // Medium expense
-    return 'border-green-500'; // Low expense
+    return 'border-orange-500'; // Low expense
   };
 
   return (
     <li
       className={`bg-white/60 dark:bg-gray-700/60 backdrop-blur-sm p-4 sm:p-6 rounded-xl shadow-lg border border-gray-100/50 dark:border-gray-600/50 border-l-4 ${getBorderColor(
-        record?.amount
+        record?.amount,
+        record?.type
       )} hover:bg-white/80 dark:hover:bg-gray-700/80 relative min-h-[120px] sm:min-h-[140px] flex flex-col justify-between overflow-visible group`}
     >
       {/* Delete button positioned absolutely in top-right corner */}
@@ -82,17 +105,29 @@ const RecordItem = ({ record }: { record: Record }) => {
             <span className='text-xs font-medium text-gray-500 dark:text-gray-400 tracking-wide uppercase'>
               {new Date(record?.date).toLocaleDateString()}
             </span>
-            <span className='text-lg sm:text-xl font-bold text-gray-900 dark:text-gray-100'>
+            <span className={`text-lg sm:text-xl font-bold ${
+              record?.type === 'income' 
+                ? 'text-green-600 dark:text-green-400' 
+                : 'text-red-600 dark:text-red-400'
+            }`}>
+              {record?.type === 'income' ? '+' : '-'}
               Rs. {record?.amount.toFixed(2)}
             </span>
           </div>
 
           <div className='flex items-center gap-2'>
             <span className='text-base sm:text-lg'>
-              {getCategoryEmoji(record?.category)}
+              {getCategoryEmoji(record?.category, record?.type)}
             </span>
             <span className='text-sm font-medium text-gray-700 dark:text-gray-300'>
               {record?.category}
+            </span>
+            <span className={`text-xs px-2 py-1 rounded-full font-medium ${
+              record?.type === 'income'
+                ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300'
+                : 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300'
+            }`}>
+              {record?.type}
             </span>
           </div>
         </div>

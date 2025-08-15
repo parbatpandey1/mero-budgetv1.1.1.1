@@ -21,6 +21,7 @@ export interface ExpenseRecord {
   id: string;
   amount: number;
   category: string;
+  type: string;
   description: string;
   date: string;
 }
@@ -42,6 +43,7 @@ export async function generateExpenseInsights(
     const expensesSummary = expenses.map((expense) => ({
       amount: expense.amount,
       category: expense.category,
+      type: expense.type,
       description: expense.description,
       date: expense.date,
     }));
@@ -60,10 +62,11 @@ export async function generateExpenseInsights(
     ${JSON.stringify(expensesSummary, null, 2)}
 
     Focus on:
-    1. Spending patterns (day of week, categories)
-    2. Budget alerts (high spending areas)
-    3. Money-saving opportunities
-    4. Positive reinforcement for good habits
+    1. Spending vs Income patterns (balance analysis)
+    2. Budget alerts (high spending areas vs income)
+    3. Money-saving and earning opportunities
+    4. Positive reinforcement for good financial habits
+    5. Income diversification suggestions
 
     Return only valid JSON array, no additional text.`;
 
@@ -143,11 +146,11 @@ export async function categorizeExpense(description: string): Promise<string> {
         {
           role: 'system',
           content:
-            'You are an expense categorization AI. Categorize expenses into one of these categories: Food, Transportation, Entertainment, Shopping, Bills, Healthcare, Other. Respond with only the category name.',
+            'You are a financial categorization AI. For expenses, categorize into: Food, Transportation, Entertainment, Shopping, Bills, Healthcare, Other. For income, categorize into: Salary, Freelance, Business, Investment, Gift, Other. Respond with only the category name.',
         },
         {
           role: 'user',
-          content: `Categorize this expense: "${description}"`,
+          content: `Categorize this financial record: "${description}"`,
         },
       ],
       temperature: 0.1,
@@ -157,12 +160,19 @@ export async function categorizeExpense(description: string): Promise<string> {
     const category = completion.choices[0].message.content?.trim();
 
     const validCategories = [
+      // Expense categories
       'Food',
       'Transportation',
       'Entertainment',
       'Shopping',
       'Bills',
       'Healthcare',
+      // Income categories
+      'Salary',
+      'Freelance',
+      'Business',
+      'Investment',
+      'Gift',
       'Other',
     ];
 
@@ -184,18 +194,19 @@ export async function generateAIAnswer(
     const expensesSummary = context.map((expense) => ({
       amount: expense.amount,
       category: expense.category,
+      type: expense.type,
       description: expense.description,
       date: expense.date,
     }));
 
     const prompt = `Based on the following expense data, provide a detailed and actionable answer to this question: "${question}"
 
-    Expense Data:
+    Financial Data:
     ${JSON.stringify(expensesSummary, null, 2)}
 
     Provide a comprehensive answer that:
     1. Addresses the specific question directly
-    2. Uses concrete data from the expenses when possible
+    2. Uses concrete data from both expenses and income when possible
     3. Offers actionable advice
     4. Keeps the response concise but informative (2-3 sentences)
     
@@ -207,7 +218,7 @@ export async function generateAIAnswer(
         {
           role: 'system',
           content:
-            'You are a helpful financial advisor AI that deals with currency of nepali rupees that provides specific, actionable answers based on expense data. Be concise but thorough.',
+            'You are a helpful financial advisor AI that deals with currency of Nepali Rupees that provides specific, actionable answers based on financial data (both expenses and income). Be concise but thorough.',
         },
         {
           role: 'user',

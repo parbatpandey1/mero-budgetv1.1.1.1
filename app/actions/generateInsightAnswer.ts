@@ -33,6 +33,7 @@ export async function generateInsightAnswer(question: string): Promise<string> {
       id: expense.id,
       amount: expense.amount,
       category: expense.category || 'Other',
+      type: expense.type || 'expense',
       description: expense.text,
       date: expense.createdAt.toISOString(),
     }));

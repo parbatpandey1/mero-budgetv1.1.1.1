@@ -1,17 +1,20 @@
 import React from 'react';
 import getUserRecord from '@/app/actions/getUserRecord';
 import getBestWorstExpense from '@/app/actions/getBestWorstExpense';
+import getIncomeStats from '@/app/actions/getIncomeStats';
 
-const ExpenseStats = async () => {
+const FinancialStats = async () => {
   try {
-    // Fetch both average and range data
-    const [userRecordResult, rangeResult] = await Promise.all([
+    // Fetch expense, income, and range data
+    const [userRecordResult, rangeResult, incomeResult] = await Promise.all([
       getUserRecord(),
       getBestWorstExpense(),
+      getIncomeStats(),
     ]);
 
     const { record, daysWithRecords } = userRecordResult;
     const { bestExpense, worstExpense } = rangeResult;
+    const { totalIncome, averageIncome } = incomeResult;
 
     // Calculate average expense
     const validRecord = record || 0;
@@ -27,27 +30,46 @@ const ExpenseStats = async () => {
           </div>
           <div>
             <h3 className='text-lg sm:text-xl font-bold text-gray-900 dark:text-gray-100'>
-              Expense Statistics
+              Financial Statistics
             </h3>
             <p className='text-xs text-gray-500 dark:text-gray-400 mt-0.5'>
-              Your spending insights and ranges
+              Your financial insights and ranges
             </p>
           </div>
         </div>
 
         <div className='space-y-3 sm:space-y-4'>
-          {/* Average Daily Spending */}
-          <div className='bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-600 rounded-xl p-3 sm:p-4 border border-gray-200/50 dark:border-gray-600/50'>
-            <div className='text-center'>
-              <p className='text-xs font-medium text-gray-600 dark:text-gray-300 mb-2 tracking-wide uppercase'>
-                Average Daily Spending
-              </p>
-              <div className='text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2'>
-                Rs. {averageExpense.toFixed(2)}
+          {/* Financial Overview */}
+          <div className='grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4'>
+            {/* Average Daily Spending */}
+            <div className='bg-gradient-to-br from-red-50 to-red-100 dark:from-red-900/20 dark:to-red-800/20 rounded-xl p-3 sm:p-4 border border-red-200/50 dark:border-red-600/50'>
+              <div className='text-center'>
+                <p className='text-xs font-medium text-red-600 dark:text-red-300 mb-2 tracking-wide uppercase'>
+                  Average Daily Spending
+                </p>
+                <div className='text-xl sm:text-2xl font-bold text-red-700 dark:text-red-300 mb-2'>
+                  Rs. {averageExpense.toFixed(2)}
+                </div>
+                <div className='inline-flex items-center gap-2 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 px-2 py-1 rounded-full text-xs font-medium'>
+                  <span className='w-1.5 h-1.5 bg-red-500 dark:bg-red-400 rounded-full'></span>
+                  Based on {validDays} days
+                </div>
               </div>
-              <div className='inline-flex items-center gap-2 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 px-2 py-1 rounded-full text-xs font-medium'>
-                <span className='w-1.5 h-1.5 bg-emerald-500 dark:bg-emerald-400 rounded-full'></span>
-                Based on {validDays} days with expenses
+            </div>
+
+            {/* Average Income */}
+            <div className='bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 rounded-xl p-3 sm:p-4 border border-green-200/50 dark:border-green-600/50'>
+              <div className='text-center'>
+                <p className='text-xs font-medium text-green-600 dark:text-green-300 mb-2 tracking-wide uppercase'>
+                  Total Income
+                </p>
+                <div className='text-xl sm:text-2xl font-bold text-green-700 dark:text-green-300 mb-2'>
+                  Rs. {(totalIncome || 0).toFixed(2)}
+                </div>
+                <div className='inline-flex items-center gap-2 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 px-2 py-1 rounded-full text-xs font-medium'>
+                  <span className='w-1.5 h-1.5 bg-green-500 dark:bg-green-400 rounded-full'></span>
+                  Avg: Rs. {(averageIncome || 0).toFixed(2)}
+                </div>
               </div>
             </div>
           </div>
@@ -107,10 +129,10 @@ const ExpenseStats = async () => {
           </div>
           <div>
             <h3 className='text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 dark:from-gray-100 dark:to-gray-300 bg-clip-text text-transparent'>
-              Expense Statistics
+              Financial Statistics
             </h3>
             <p className='text-sm text-gray-500 dark:text-gray-400 mt-1'>
-              Your spending insights and ranges
+              Your financial insights and ranges
             </p>
           </div>
         </div>
@@ -120,7 +142,7 @@ const ExpenseStats = async () => {
               <span className='text-lg'>⚠️</span>
             </div>
             <p className='text-red-800 dark:text-red-300 font-semibold'>
-              Unable to load expense statistics
+              Unable to load financial statistics
             </p>
           </div>
           <p className='text-red-700 dark:text-red-400 text-sm ml-11'>
@@ -132,4 +154,4 @@ const ExpenseStats = async () => {
   }
 };
 
-export default ExpenseStats;
+export default FinancialStats;

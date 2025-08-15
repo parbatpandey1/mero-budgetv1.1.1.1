@@ -28,6 +28,7 @@ interface Record {
   date: string; // ISO date string
   amount: number; // Amount spent
   category: string; // Expense category
+  type: string; // Record type: 'expense' or 'income'
 }
 
 const BarChart = ({ records }: { records: Record[] }) => {
@@ -54,7 +55,12 @@ const BarChart = ({ records }: { records: Record[] }) => {
   const aggregateByDate = (records: Record[]) => {
     const dateMap = new Map<
       string,
-      { total: number; categories: string[]; originalDate: string }
+      { 
+        totalExpense: number; 
+        totalIncome: number; 
+        categories: string[]; 
+        originalDate: string 
+      }
     >();
 
     records.forEach((record) => {
@@ -68,13 +74,18 @@ const BarChart = ({ records }: { records: Record[] }) => {
       const existing = dateMap.get(dateKey);
 
       if (existing) {
-        existing.total += record.amount;
+        if (record.type === 'expense') {
+          existing.totalExpense += record.amount;
+        } else {
+          existing.totalIncome += record.amount;
+        }
         if (!existing.categories.includes(record.category)) {
           existing.categories.push(record.category);
         }
       } else {
         dateMap.set(dateKey, {
-          total: record.amount,
+          totalExpense: record.type === 'expense' ? record.amount : 0,
+          totalIncome: record.type === 'income' ? record.amount : 0,
           categories: [record.category],
           originalDate: record.date, // Keep original ISO date for sorting
         });
@@ -85,7 +96,8 @@ const BarChart = ({ records }: { records: Record[] }) => {
     return Array.from(dateMap.entries())
       .map(([date, data]) => ({
         date,
-        amount: data.total,
+        totalExpense: data.totalExpense,
+        totalIncome: data.totalIncome,
         categories: data.categories,
         originalDate: data.originalDate,
       }))
@@ -98,29 +110,6 @@ const BarChart = ({ records }: { records: Record[] }) => {
 
   const aggregatedData = aggregateByDate(records);
 
-  // Get color based on amount (since we're aggregating multiple categories)
-  const getAmountColor = (amount: number) => {
-    if (amount > 10000)
-      return {
-        bg: isDark ? 'rgba(255, 99, 132, 0.3)' : 'rgba(255, 99, 132, 0.2)',
-        border: isDark ? 'rgba(255, 99, 132, 0.8)' : 'rgba(255, 99, 132, 1)',
-      }; // Red for high spending
-    if (amount > 1000)
-      return {
-        bg: isDark ? 'rgba(255, 206, 86, 0.3)' : 'rgba(255, 206, 86, 0.2)',
-        border: isDark ? 'rgba(255, 206, 86, 0.8)' : 'rgba(255, 206, 86, 1)',
-      }; // Yellow for medium spending
-    if (amount > 500)
-      return {
-        bg: isDark ? 'rgba(54, 162, 235, 0.3)' : 'rgba(54, 162, 235, 0.2)',
-        border: isDark ? 'rgba(54, 162, 235, 0.8)' : 'rgba(54, 162, 235, 1)',
-      }; // Blue for moderate spending
-    return {
-      bg: isDark ? 'rgba(75, 192, 192, 0.3)' : 'rgba(75, 192, 192, 0.2)',
-      border: isDark ? 'rgba(75, 192, 192, 0.8)' : 'rgba(75, 192, 192, 1)',
-    }; // Green for low spending
-  };
-
   // Prepare data for the chart
   const data = {
     labels: aggregatedData.map((item) => {
@@ -130,13 +119,18 @@ const BarChart = ({ records }: { records: Record[] }) => {
     }),
     datasets: [
       {
-        data: aggregatedData.map((item) => item.amount),
-        backgroundColor: aggregatedData.map(
-          (item) => getAmountColor(item.amount).bg
-        ),
-        borderColor: aggregatedData.map(
-          (item) => getAmountColor(item.amount).border
-        ),
+        label: 'Expenses',
+        data: aggregatedData.map((item) => item.totalExpense),
+        backgroundColor: isDark ? 'rgba(255, 99, 132, 0.3)' : 'rgba(255, 99, 132, 0.2)',
+        borderColor: isDark ? 'rgba(255, 99, 132, 0.8)' : 'rgba(255, 99, 132, 1)',
+        borderWidth: 1,
+        borderRadius: 2, // Rounded bar edges
+      },
+      {
+        label: 'Income',
+        data: aggregatedData.map((item) => item.totalIncome),
+        backgroundColor: isDark ? 'rgba(75, 192, 192, 0.3)' : 'rgba(75, 192, 192, 0.2)',
+        borderColor: isDark ? 'rgba(75, 192, 192, 0.8)' : 'rgba(75, 192, 192, 1)',
         borderWidth: 1,
         borderRadius: 2, // Rounded bar edges
       },
@@ -148,7 +142,16 @@ const BarChart = ({ records }: { records: Record[] }) => {
     maintainAspectRatio: false, // Allow flexible height
     plugins: {
       legend: {
-        display: false, // Remove legend
+        display: true,
+        position: 'top' as const,
+        labels: {
+          font: {
+            size: isMobile ? 10 : 12,
+          },
+          color: isDark ? '#d1d5db' : '#374151',
+          usePointStyle: true,
+          pointStyle: 'rect',
+        },
       },
       title: {
         display: false, // Remove chart title
@@ -163,14 +166,17 @@ const BarChart = ({ records }: { records: Record[] }) => {
         borderWidth: 1,
         cornerRadius: 8,
         callbacks: {
-          label: function (context: { dataIndex: number }) {
+          label: function (context: { dataIndex: number; datasetIndex: number; parsed: { y: number } }) {
             const dataIndex = context.dataIndex;
+            const datasetIndex = context.datasetIndex;
             const item = aggregatedData[dataIndex];
-            const categoriesText =
-              item.categories.length > 1
-                ? `Categories: ${item.categories.join(', ')}`
-                : `Category: ${item.categories[0]}`;
-            return [`Total: $${item.amount.toFixed(2)}`, categoriesText];
+            const type = datasetIndex === 0 ? 'Expense' : 'Income';
+            const amount = datasetIndex === 0 ? item.totalExpense : item.totalIncome;
+            
+            return [
+              `${type}: Rs.${amount.toFixed(2)}`,
+              `Categories: ${item.categories.join(', ')}`
+            ];
           },
         },
       },
