@@ -21,8 +21,8 @@ const Guest = () => {
             </span>
           </h1>
           <p className='text-base sm:text-lg md:text-xl lg:text-2xl mb-6 sm:mb-8 text-gray-600 dark:text-gray-400 leading-relaxed max-w-3xl mx-auto px-2 sm:px-0'>
-            Track your expenses, manage your budget, and get AI-powered insights
-            to ease your finances with intelligent automation.
+            Track your expenses and income, manage your budget, and get AI-powered insights
+            to optimize your finances with intelligent automation.
           </p>
           <div className='flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-8 sm:mb-12 px-2 sm:px-0'>
             <SignInButton>
@@ -46,7 +46,7 @@ const Guest = () => {
                 AI Insights
               </h3>
               <p className='text-xs sm:text-sm text-gray-600 dark:text-gray-400 text-center'>
-                Smart analysis of your spending patterns
+                Smart analysis of your financial patterns
               </p>
             </div>
             <div className='bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-4 sm:p-6 rounded-xl sm:rounded-2xl shadow-lg border border-gray-100/50 dark:border-gray-700/50'>
@@ -57,7 +57,7 @@ const Guest = () => {
                 Auto Categories
               </h3>
               <p className='text-xs sm:text-sm text-gray-600 dark:text-gray-400 text-center'>
-                Intelligent expense categorization
+                Intelligent financial categorization
               </p>
             </div>
             <div className='bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-4 sm:p-6 rounded-xl sm:rounded-2xl shadow-lg border border-gray-100/50 dark:border-gray-700/50 sm:col-span-2 md:col-span-1'>
@@ -92,7 +92,7 @@ const Guest = () => {
             </h2>
             <p className='text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto px-2 sm:px-0'>
               Everything you need to know about MeroBudget and how it can
-              transform your financial management.
+              transform your complete financial management.
             </p>
           </div>
 
@@ -107,11 +107,11 @@ const Guest = () => {
                     What is MeroBudget?
                   </h3>
                   <p className='text-sm sm:text-base text-gray-600 dark:text-gray-400 leading-relaxed'>
-                    MeroBUdget is an intelligent financial management
+                    MeroBudget is an intelligent financial management
                     tool that uses artificial intelligence to help you monitor
-                    your spending patterns, get smart category suggestions, and
-                    receive personalized insights to improve your financial
-                    health.
+                    both your income and spending patterns, get smart category suggestions, and
+                    receive personalized insights to improve your overall financial
+                    health and balance.
                   </p>
                 </div>
               </div>
@@ -127,9 +127,9 @@ const Guest = () => {
                     How does the AI work?
                   </h3>
                   <p className='text-sm sm:text-base text-gray-600 dark:text-gray-400 leading-relaxed'>
-                    Our AI analyzes your spending data to automatically
-                    categorize expenses, detect patterns, and provide
-                    personalized recommendations.
+                    Our AI analyzes both your income and spending data to automatically
+                    categorize transactions, detect financial patterns, and provide
+                    personalized recommendations for better money management.
                   </p>
                 </div>
               </div>
@@ -169,7 +169,7 @@ const Guest = () => {
               </span>
             </h2>
             <p className='text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto px-2 sm:px-0'>
-              Our users are extremely satisfied with MeroBudget. Here’s what they have to say:
+              Our users are extremely satisfied with MeroBudget. Here's what they have to say:
             </p>
           </div>
 
@@ -193,7 +193,7 @@ const Guest = () => {
                   </div>
                 </div>
                 <p className='text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed mb-4'>
-                  &ldquo;MeroBudget has helped me track my finances very well i absolutely love it!&rdquo;
+                  &ldquo;MeroBudget has helped me track both my income and expenses perfectly. The AI insights are amazing!&rdquo;
                 </p>
                 <div className='flex text-emerald-500 text-xs sm:text-sm'>
                   ⭐⭐⭐⭐⭐
@@ -220,8 +220,7 @@ const Guest = () => {
                   </div>
                 </div>
                 <p className='text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed mb-4'>
-                  &ldquo;The AI from MeroBudget has helped
-                  me identify and reduce unnecessary spending.&rdquo;
+                  &ldquo;The AI insights helped me balance my income and expenses better, reducing unnecessary spending.&rdquo;
                 </p>
                 <div className='flex text-emerald-500 text-xs sm:text-sm'>
                   ⭐⭐⭐⭐⭐
@@ -248,7 +247,7 @@ const Guest = () => {
                   </div>
                 </div>
                 <p className='text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed mb-4'>
-                  &ldquo;MeroBudget is single handely the most important piece of AI technology I have used in my life!&rdquo;
+                  &ldquo;MeroBudget's comprehensive income and expense tracking with AI is revolutionary for personal finance!&rdquo;
                 </p>
                 <div className='flex text-emerald-500 text-xs sm:text-sm'>
                   ⭐⭐⭐⭐⭐

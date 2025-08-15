@@ -19,7 +19,7 @@ const Footer = () => {
               </h2>
             </div>
             <p className='text-gray-600 dark:text-gray-400 leading-relaxed max-w-sm'>
-              Personal budget management with manual expense tracking along with AI powered insights.
+              Complete financial management with income and expense tracking plus AI-powered insights.
             </p>
           </div>
 

@@ -46,7 +46,7 @@ const AboutPage = () => {
             <span className='text-emerald-600 dark:text-emerald-400'>AI</span>
           </h2>
           <p className='text-lg md:text-xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-3xl mx-auto'>
-            The mission of MeroBudget is to appear simple and efficient to track your expenses and manage your budget with our AI-powered features. We aim to empower individuals to take control of their finances through intuitive design, intelligent insights, and seamless user experience.
+            The mission of MeroBudget is to provide simple and efficient tracking of both income and expenses to manage your complete budget with our AI-powered features. We aim to empower individuals to take control of their finances through intuitive design, intelligent insights, and seamless user experience.
           </p>
           <div className='mt-10 grid grid-cols-1 md:grid-cols-3 gap-6'>
             <div className='bg-gradient-to-br from-emerald-50 to-green-50 dark:from-emerald-900/20 dark:to-green-900/20 p-6 rounded-2xl border border-emerald-100 dark:border-emerald-800/50'>
@@ -59,10 +59,10 @@ const AboutPage = () => {
             </div>
             <div className='bg-gradient-to-br from-green-50 to-teal-50 dark:from-green-900/20 dark:to-teal-900/20 p-6 rounded-2xl border border-green-100 dark:border-green-800/50'>
               <div className='text-3xl font-bold text-green-600 dark:text-green-400 mb-2'>
-                Rs.69,420
+                Rs.1,50,000
               </div>
               <div className='text-gray-600 dark:text-gray-400 font-medium'>
-                Money Tracked
+                Total Transactions
               </div>
             </div>
             <div className='bg-gradient-to-br from-teal-50 to-emerald-50 dark:from-teal-900/20 dark:to-emerald-900/20 p-6 rounded-2xl border border-teal-100 dark:border-teal-800/50'>
@@ -92,7 +92,7 @@ const AboutPage = () => {
               </span>
             </h2>
             <p className='text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto'>
-              It is simple and effiecient to track your expenses and manage your budget with our AI-powered features.
+              Simple and efficient tracking of income and expenses with comprehensive budget management using AI-powered features.
             </p>
           </div>
 
@@ -107,9 +107,9 @@ const AboutPage = () => {
                   AI-Powered Insights
                 </h3>
                 <p className='text-gray-600 dark:text-gray-400 leading-relaxed'>
-                  Get intelligent analysis of your spending patterns with
-                  personalized AI recommendations and automated category
-                  suggestions that learn from your behavior.
+                  Get intelligent analysis of your complete financial patterns with
+                  personalized AI recommendations for both income and expenses, plus automated category
+                  suggestions that learn from your financial behavior.
                 </p>
               </div>
             </div>
@@ -124,9 +124,9 @@ const AboutPage = () => {
                   Smart Categorization
                 </h3>
                 <p className='text-gray-600 dark:text-gray-400 leading-relaxed'>
-                  Let our AI automatically categorize your expenses with 99%
+                  Let our AI automatically categorize both your income and expenses with 99%
                   accuracy and provide tailored recommendations to enhance your
-                  budget management effortlessly.
+                  complete financial management effortlessly.
                 </p>
               </div>
             </div>
@@ -142,8 +142,8 @@ const AboutPage = () => {
                 </h3>
                 <p className='text-gray-600 dark:text-gray-400 leading-relaxed'>
                   Experience a modern, AI-enhanced interface with real-time
-                  insights, interactive financial analytics, and beautiful
-                  visualizations that make sense of your data.
+                  insights, interactive financial analytics covering both income and expenses, and beautiful
+                  visualizations that make complete sense of your financial data.
                 </p>
               </div>
             </div>
