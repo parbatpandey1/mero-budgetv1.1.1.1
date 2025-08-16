@@ -78,7 +78,7 @@ const RecordHistory = async () => {
         </div>
         <div>
           <h3 className='text-lg sm:text-xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 dark:from-gray-100 dark:to-gray-300 bg-clip-text text-transparent'>
-            Income and Expense History
+            Income and Expense History.
           </h3>
           <p className='text-xs text-gray-500 dark:text-gray-400 mt-0.5'>
             Your income and spending timeline
