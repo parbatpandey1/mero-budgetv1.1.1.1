@@ -47,10 +47,10 @@ const RecordHistory = async () => {
           </div>
           <div>
             <h3 className='text-lg sm:text-xl font-bold text-gray-900 dark:text-gray-100'>
-              Expense History
+              Transaction History
             </h3>
             <p className='text-xs text-gray-500 dark:text-gray-400 mt-0.5'>
-              Your spending timeline
+              Your income and expense timeline
             </p>
           </div>
         </div>
@@ -62,7 +62,7 @@ const RecordHistory = async () => {
             No Expense and Income Records Found
           </h4>
           <p className='text-gray-600 dark:text-gray-400 max-w-md mx-auto text-sm'>
-            Start tracking your expenses to see your spending history and
+            Start tracking your income and expenses to see your spending history and
             patterns here.
           </p>
         </div>
