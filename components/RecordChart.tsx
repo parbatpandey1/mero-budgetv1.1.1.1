@@ -75,10 +75,10 @@ const RecordChart = async () => {
         </div>
         <div>
           <h3 className='text-lg sm:text-xl font-bold text-gray-900 dark:text-gray-100'>
-            Expense Chart
+            Income and Expense Chart
           </h3>
           <p className='text-xs text-gray-500 dark:text-gray-400 mt-0.5'>
-            Visual representation of your spending.
+            Visual representation of your income and spending.
           </p>
         </div>
       </div>
