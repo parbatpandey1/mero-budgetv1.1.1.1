@@ -14,10 +14,10 @@ const RecordHistory = async () => {
           </div>
           <div>
             <h3 className='text-lg sm:text-xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 dark:from-gray-100 dark:to-gray-300 bg-clip-text text-transparent'>
-              Expense History
+              Transaction History
             </h3>
             <p className='text-xs text-gray-500 dark:text-gray-400 mt-0.5'>
-              Your spending timeline
+              Your income and expense timeline
             </p>
           </div>
         </div>
@@ -27,7 +27,7 @@ const RecordHistory = async () => {
               <span className='text-base sm:text-lg'>⚠️</span>
             </div>
             <h4 className='font-bold text-red-800 dark:text-red-300 text-sm'>
-              Error loading expense history
+              Error loading income and expense history
             </h4>
           </div>
           <p className='text-red-700 dark:text-red-400 ml-8 sm:ml-10 text-xs'>
