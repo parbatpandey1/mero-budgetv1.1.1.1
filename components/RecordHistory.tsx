@@ -59,7 +59,7 @@ const RecordHistory = async () => {
             <span className='text-2xl sm:text-3xl'>📊</span>
           </div>
           <h4 className='text-base sm:text-lg font-bold text-gray-800 dark:text-gray-200 mb-2'>
-            No Expense Records Found
+            No Expense and Income Records Found
           </h4>
           <p className='text-gray-600 dark:text-gray-400 max-w-md mx-auto text-sm'>
             Start tracking your expenses to see your spending history and
