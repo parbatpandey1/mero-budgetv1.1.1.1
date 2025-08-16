@@ -3,7 +3,7 @@ import getUserRecord from '@/app/actions/getUserRecord';
 import getBestWorstExpense from '@/app/actions/getBestWorstExpense';
 import getIncomeStats from '@/app/actions/getIncomeStats';
 
-const FinancialStats = async () => {
+const ExpenseStats = async () => {
   try {
     // Fetch expense, income, and range data
     const [userRecordResult, rangeResult, incomeResult] = await Promise.all([
@@ -16,11 +16,15 @@ const FinancialStats = async () => {
     const { bestExpense, worstExpense } = rangeResult;
     const { totalIncome, averageIncome } = incomeResult;
 
-    // Calculate average expense
+    // Calculate spending metrics
     const validRecord = record || 0;
-    const validDays =
-      daysWithRecords && daysWithRecords > 0 ? daysWithRecords : 1;
-    const averageExpense = validRecord / validDays;
+    const validDays = daysWithRecords && daysWithRecords > 0 ? daysWithRecords : 1;
+    
+    // If only one day, show total spending; if multiple days, show average
+    const isMultipleDays = validDays > 1;
+    const spendingAmount = isMultipleDays ? validRecord / validDays : validRecord;
+    const spendingLabel = isMultipleDays ? 'Average Daily Spending' : 'Today\'s Total Spending';
+    const spendingSubtext = isMultipleDays ? `Based on ${validDays} days` : 'Single day total';
 
     return (
       <div className='bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-4 sm:p-6 rounded-2xl shadow-xl border border-gray-100/50 dark:border-gray-700/50 hover:shadow-2xl'>
@@ -41,23 +45,23 @@ const FinancialStats = async () => {
         <div className='space-y-3 sm:space-y-4'>
           {/* Financial Overview */}
           <div className='grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4'>
-            {/* Average Daily Spending */}
+            {/* Daily Spending (Total or Average based on days) */}
             <div className='bg-gradient-to-br from-red-50 to-red-100 dark:from-red-900/20 dark:to-red-800/20 rounded-xl p-3 sm:p-4 border border-red-200/50 dark:border-red-600/50'>
               <div className='text-center'>
                 <p className='text-xs font-medium text-red-600 dark:text-red-300 mb-2 tracking-wide uppercase'>
-                  Average Daily Spending
+                  {spendingLabel}
                 </p>
                 <div className='text-xl sm:text-2xl font-bold text-red-700 dark:text-red-300 mb-2'>
-                  Rs. {averageExpense.toFixed(2)}
+                  Rs. {spendingAmount.toFixed(2)}
                 </div>
                 <div className='inline-flex items-center gap-2 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 px-2 py-1 rounded-full text-xs font-medium'>
                   <span className='w-1.5 h-1.5 bg-red-500 dark:bg-red-400 rounded-full'></span>
-                  Based on {validDays} days
+                  {spendingSubtext}
                 </div>
               </div>
             </div>
 
-            {/* Average Income */}
+            {/* Total Income */}
             <div className='bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 rounded-xl p-3 sm:p-4 border border-green-200/50 dark:border-green-600/50'>
               <div className='text-center'>
                 <p className='text-xs font-medium text-green-600 dark:text-green-300 mb-2 tracking-wide uppercase'>
@@ -86,7 +90,7 @@ const FinancialStats = async () => {
                 </div>
                 <div className='flex-1'>
                   <h4 className='font-bold text-gray-900 dark:text-gray-100 text-xs mb-0.5'>
-                    Highest
+                    Highest Expense
                   </h4>
                   <p className='text-lg font-bold text-red-600 dark:text-red-300'>
                     {bestExpense !== undefined ? `Rs.${bestExpense}` : 'No data'}
@@ -105,7 +109,7 @@ const FinancialStats = async () => {
                 </div>
                 <div className='flex-1'>
                   <h4 className='font-bold text-gray-900 dark:text-gray-100 text-xs mb-0.5'>
-                    Lowest
+                    Lowest Expense
                   </h4>
                   <p className='text-lg font-bold text-green-600 dark:text-green-300'>
                     {worstExpense !== undefined
@@ -154,4 +158,4 @@ const FinancialStats = async () => {
   }
 };
 
-export default FinancialStats;
+export default ExpenseStats;
