@@ -13,10 +13,10 @@ const RecordChart = async () => {
           </div>
           <div>
             <h3 className='text-lg sm:text-xl font-bold text-gray-900 dark:text-gray-100'>
-              Expense Chart
+              Expense and Income Chart
             </h3>
             <p className='text-xs text-gray-500 dark:text-gray-400 mt-0.5'>
-              Visual representation of your spending
+              Visual representation of your earning and spending
             </p>
           </div>
         </div>
@@ -44,10 +44,10 @@ const RecordChart = async () => {
           </div>
           <div>
             <h3 className='text-lg sm:text-xl font-bold text-gray-900 dark:text-gray-100'>
-              Expense Chart
+              Expense and Income Chart
             </h3>
             <p className='text-xs text-gray-500 dark:text-gray-400 mt-0.5'>
-              Visual representation of your spending.
+              Visual representation of your earning and spending
             </p>
           </div>
         </div>
@@ -75,10 +75,10 @@ const RecordChart = async () => {
         </div>
         <div>
           <h3 className='text-lg sm:text-xl font-bold text-gray-900 dark:text-gray-100'>
-            Income and Expense Chart
+            Expense and Income Chart
           </h3>
           <p className='text-xs text-gray-500 dark:text-gray-400 mt-0.5'>
-            Visual representation of your income and spending.
+            Visual representation of your earning and spending
           </p>
         </div>
       </div>
