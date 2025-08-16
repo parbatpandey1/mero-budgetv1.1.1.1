@@ -169,7 +169,7 @@ const Guest = () => {
               </span>
             </h2>
             <p className='text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto px-2 sm:px-0'>
-              Our users are extremely satisfied with MeroBudget. Here's what they have to say:
+              Our users are extremely satisfied with MeroBudget. Here&apos;s what they have to say:
             </p>
           </div>
 
@@ -193,7 +193,7 @@ const Guest = () => {
                   </div>
                 </div>
                 <p className='text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed mb-4'>
-                  &ldquo;MeroBudget has helped me track both my income and expenses perfectly. The AI insights are amazing!&rdquo;
+                  &quot;MeroBudget has helped me track both my income and expenses perfectly. The AI insights are amazing!&quot;
                 </p>
                 <div className='flex text-emerald-500 text-xs sm:text-sm'>
                   ⭐⭐⭐⭐⭐
@@ -220,7 +220,7 @@ const Guest = () => {
                   </div>
                 </div>
                 <p className='text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed mb-4'>
-                  &ldquo;The AI insights helped me balance my income and expenses better, reducing unnecessary spending.&rdquo;
+                  &quot;The AI insights helped me balance my income and expenses better, reducing unnecessary spending.&quot;
                 </p>
                 <div className='flex text-emerald-500 text-xs sm:text-sm'>
                   ⭐⭐⭐⭐⭐
@@ -247,7 +247,7 @@ const Guest = () => {
                   </div>
                 </div>
                 <p className='text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed mb-4'>
-                  &ldquo;MeroBudget's comprehensive income and expense tracking with AI is revolutionary for personal finance!&rdquo;
+                  &quot;MeroBudget&apos;s comprehensive income and expense tracking with AI is revolutionary for personal finance!&quot;
                 </p>
                 <div className='flex text-emerald-500 text-xs sm:text-sm'>
                   ⭐⭐⭐⭐⭐
