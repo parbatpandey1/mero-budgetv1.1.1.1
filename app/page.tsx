@@ -4,6 +4,7 @@ import FinancialStats from '@/components/ExpenseStats';
 import Guest from '@/components/Guest';
 import RecordChart from '@/components/RecordChart';
 import RecordHistory from '@/components/RecordHistory';
+import ToggleableSpendingChart from '@/components/ToggleableSpendingChart';
 import { currentUser } from '@clerk/nextjs/server';
 
 export default async function HomePage() {
@@ -90,6 +91,8 @@ export default async function HomePage() {
             {/* Expense Analytics */}
             <RecordChart />
             <FinancialStats />
+            {/* Toggleable Spending Chart */}
+            <ToggleableSpendingChart />
           </div>
         </div>
 

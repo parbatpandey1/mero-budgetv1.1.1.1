@@ -14,13 +14,19 @@ async function getRecords(): Promise<{
   }
 
   try {
-    const records = await db.record.findMany({
+    const recordsRaw = await db.record.findMany({
       where: { userId },
       orderBy: {
         date: 'desc', // Sort by the `date` field in descending order
       },
       take: 20, // Limit the request to 20 records to show both income and expenses
     });
+
+    const records: Record[] = recordsRaw.map((record) => ({
+      ...record,
+      type: record.type === 'income' ? 'income' : 'expense',
+      date: record.date instanceof Date ? record.date.toISOString() : record.date,
+    }));
 
     return { records };
   } catch (error) {

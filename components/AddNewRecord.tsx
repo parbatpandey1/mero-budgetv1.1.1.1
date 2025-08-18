@@ -12,7 +12,7 @@ const AddRecord = () => {
   const [category, setCategory] = useState(''); // State for selected expense category
   const [description, setDescription] = useState(''); // State for expense description
   const [isCategorizingAI, setIsCategorizingAI] = useState(false); // State for AI categorization loading
-  const [recordType, setRecordType] = useState<'expense' | 'income'>('expense'); // State for record type
+  const [recordType, setRecordType] = useState<'expense' | 'income'>('expense');
 
   const clientAction = async (formData: FormData) => {
     setIsLoading(true); // Show spinner
@@ -91,7 +91,6 @@ const AddRecord = () => {
         }}
         className='space-y-6 sm:space-y-8'
       >
-        {/* Expense Description and Date */}
         {/* Record Type Selection */}
         <div className='p-3 sm:p-4 bg-gradient-to-r from-emerald-50/50 to-green-50/50 dark:from-emerald-900/10 dark:to-green-900/10 rounded-xl border border-emerald-100/50 dark:border-emerald-800/50'>
           <label className='flex items-center gap-2 text-xs font-semibold text-gray-700 dark:text-gray-300 tracking-wide mb-3'>
@@ -136,6 +135,7 @@ const AddRecord = () => {
           </div>
         </div>
 
+        {/* Description and Date */}
         <div className='grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 p-3 sm:p-4 bg-gradient-to-r from-emerald-50/50 to-green-50/50 dark:from-emerald-900/10 dark:to-green-900/10 rounded-xl border border-emerald-100/50 dark:border-emerald-800/50'>
           {/* Expense Description */}
           <div className='space-y-1.5'>
@@ -179,7 +179,7 @@ const AddRecord = () => {
             )}
           </div>
 
-          {/* Expense Date */}
+          {/* Date */}
           <div className='space-y-1.5'>
             <label
               htmlFor='date'

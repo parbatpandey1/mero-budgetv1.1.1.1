@@ -19,6 +19,21 @@ interface AIAnswer {
   isLoading: boolean;
 }
 
+// NPR Currency formatting utility
+const formatNPR = (amount: number): string => {
+  return new Intl.NumberFormat('ne-NP', {
+    style: 'currency',
+    currency: 'NPR',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(amount);
+};
+
+// Alternative NPR formatter if Intl doesn't work well
+const formatNPRSimple = (amount: number): string => {
+  return `रू ${amount.toLocaleString('ne-NP')}`;
+};
+
 const AIInsights = () => {
   const [insights, setInsights] = useState<InsightData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -40,7 +55,7 @@ const AIInsights = () => {
           type: 'info',
           title: 'AI Temporarily Unavailable',
           message:
-            "We're working to restore AI insights. Please check back soon.",
+            "We're working to restore AI insights for your NPR budget analysis. Please check back soon.",
           action: 'Try again later',
         },
       ]);
@@ -71,8 +86,8 @@ const AIInsights = () => {
     ]);
 
     try {
-      // Generate question based on insight title and action
-      const question = `${insight.title}: ${insight.action}`;
+      // Generate question based on insight title and action with NPR context
+      const question = `${insight.title}: ${insight.action} (Please provide answers in Nepali Rupees - NPR context)`;
 
       // Use server action to generate AI answer
       const answer = await generateInsightAnswer(question);
@@ -90,7 +105,7 @@ const AIInsights = () => {
             ? {
                 ...a,
                 answer:
-                  'Sorry, I was unable to generate a detailed answer. Please try again.',
+                  'Sorry, I was unable to generate a detailed answer about your NPR budget. Please try again.',
                 isLoading: false,
               }
             : a
@@ -176,7 +191,7 @@ const AIInsights = () => {
               AI Insights
             </h3>
             <p className='text-xs text-gray-500 dark:text-gray-400 mt-0.5'>
-              Analyzing your spending patterns
+              Analyzing your NPR spending patterns
             </p>
           </div>
           <div className='flex items-center gap-1 sm:gap-2'>
@@ -209,7 +224,7 @@ const AIInsights = () => {
           <div className='flex items-center justify-center gap-2 text-sm text-gray-500 dark:text-gray-400'>
             <div className='w-1.5 h-1.5 bg-emerald-500 dark:bg-emerald-400 rounded-full animate-pulse'></div>
             <span className='text-xs sm:text-sm'>
-              AI is analyzing your financial patterns...
+              AI is analyzing your Nepal financial patterns...
             </span>
           </div>
         </div>
@@ -229,7 +244,7 @@ const AIInsights = () => {
               AI Insights
             </h3>
             <p className='text-xs text-gray-500 dark:text-gray-400 mt-0.5'>
-              AI financial analysis
+              AI NPR financial analysis
             </p>
           </div>
         </div>
@@ -329,7 +344,7 @@ const AIInsights = () => {
                         </div>
                         <div className='flex-1'>
                           <h5 className='font-semibold text-gray-900 dark:text-gray-100 text-xs mb-1'>
-                            AI Answer:
+                            AI Answer (NPR Analysis):
                           </h5>
                           {currentAnswer.isLoading ? (
                             <div className='space-y-1'>
@@ -359,14 +374,14 @@ const AIInsights = () => {
             <div className='w-5 h-5 sm:w-6 sm:h-6 bg-emerald-50 dark:bg-emerald-900/30 rounded-lg flex items-center justify-center'>
               <span className='text-sm'>🧠</span>
             </div>
-            <span className='font-medium text-xs'>Powered by AI analysis</span>
+            <span className='font-medium text-xs'>Powered by AI analysis (NPR)</span>
           </div>
           <button
             onClick={loadInsights}
             className='px-3 py-1.5 bg-gradient-to-r from-emerald-600 via-green-500 to-teal-500 hover:from-emerald-700 hover:via-green-600 hover:to-teal-600 text-white rounded-lg font-medium text-xs shadow-lg hover:shadow-xl transition-all duration-200'
           >
             <span className='sm:hidden'>Refresh</span>
-            <span className='hidden sm:inline'>Refresh Insights →</span>
+            <span className='hidden sm:inline'>Refresh NPR Insights →</span>
           </button>
         </div>
       </div>
