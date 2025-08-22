@@ -145,7 +145,11 @@ const ToggleableSpendingChart = () => {
       <div className="flex justify-between items-center mb-3">
         <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
           Spending Analytics
+            <p className='text-xs text-gray-500 dark:text-gray-400 mt-0.5'>
+              Lookup your spending habits by category
+            </p>
         </h3>
+        
         <button
           onClick={handleToggleChart}
           className="bg-gradient-to-r from-emerald-500 to-green-500 hover:from-emerald-600 hover:to-green-600 text-white px-4 py-2 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2"
@@ -159,7 +163,7 @@ const ToggleableSpendingChart = () => {
           ) : (
             <>
               <span className="text-sm">📊</span>
-              {showChart ? 'Hide Chart' : 'Spending by Categories'}
+              {showChart ? 'Hide Chart' : 'Show Analytics'}
             </>
           )}
         </button>
