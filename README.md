@@ -1,6 +1,6 @@
 # 💰 MeroBudget
 
-A modern, AI-powered expense tracking web application built with Next.js 15, featuring intelligent categorization, real-time analytics, and personalized financial insights.
+A modern AI-powered expense tracking web application built with Next.js 15, featuring intelligent categorization, real-time analytics, and personalized financial insights.
 
 ![MeroBudget](https://img.shields.io/badge/Next.js-15.3.5-black?style=for-the-badge&logo=next.js)
 ![React](https://img.shields.io/badge/React-19.0.0-blue?style=for-the-badge&logo=react)
