@@ -10,6 +10,8 @@ A modern, AI-powered expense tracking web application built with Next.js 15, fea
 ## ✨ Features
 
 ### 🤖 AI-Powered Intelligence
+<img width="1758" height="660" alt="image" src="https://github.com/user-attachments/assets/cddaafc2-c03c-4def-952b-08972d2fd19e" />
+
 
 - **Smart Categorization**: AI automatically suggests expense categories based on descriptions
 - **Financial Insights**: Personalized recommendations and spending pattern analysis
@@ -19,8 +21,14 @@ A modern, AI-powered expense tracking web application built with Next.js 15, fea
 
 - **Expense Tracking**: Add, edit, and delete expenses with ease
 - **Real-time Charts**: Beautiful visualizations using Chart.js
+- <img width="872" height="554" alt="image" src="https://github.com/user-attachments/assets/99762c74-85ce-4fd0-9e81-ba8629f0b879" />
+
 - **Statistics Dashboard**: Comprehensive spending analytics
 - **Expense History**: Complete transaction history with search and filter
+- <img width="1659" height="574" alt="image" src="https://github.com/user-attachments/assets/715a096d-ef56-44e8-a5a6-6196bd5d9188" />
+
+- **Budget Tracking** - Track monthly budget
+<img width="1643" height="428" alt="image" src="https://github.com/user-attachments/assets/47e0cf10-b899-41ce-b6dc-02e95df4ed49" />
 
 ### 🎨 Modern UI/UX
 
